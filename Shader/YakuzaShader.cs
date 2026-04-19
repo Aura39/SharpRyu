@@ -112,7 +112,7 @@ namespace Shader
 
             var fxoSizeOffset = bw.BaseStream.Position;
             bw.Write(0); // Placeholder for FXO Size
-            bw.Write(CalculateChecksum16(Encoding.ASCII.GetBytes(Name))); // Placeholder for name CRC-16
+            bw.Write(CalculateChecksum16(Encoding.ASCII.GetBytes(Name))); // Placeholder for accumulated name checksum
 
             char[] name = new char[30];
             Array.Fill(name, '\0');

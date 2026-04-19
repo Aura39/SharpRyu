@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -62,7 +63,11 @@ namespace Shader
 
             bw.Write(CompiledBinary.Length);
 
-            bw.Write(new byte[32]);
+            bw.Write(new byte[16]);
+
+            bw.Write(System.IO.Hashing.Crc32.Hash(CompiledBinary)); // Bytecode CRC-32
+
+            bw.Write(new byte[12]);
 
             Data.Write(bw);
 
