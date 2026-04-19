@@ -188,5 +188,20 @@ namespace Shader
                 }
             }
         }
+
+        public void Read(byte[] bytes)
+        {
+            var stream = new MemoryStream(bytes);
+            var br = new BinaryReader(stream);
+            Read(br);
+        }
+
+        public byte[] Write()
+        {
+            var stream = new MemoryStream();
+            var bw = new BinaryWriter(stream);
+            Write(bw);
+            return stream.ToArray();
+        }
     }
 }

@@ -13,6 +13,8 @@ namespace Shader
         public void Write(BinaryWriter bw);
         public void Read(string Path);
         public void Write(string Path);
+        public void Read(byte[] bytes);
+        public byte[] Write();
     }
     
     public class Block<T> : IBlock where T : BlockData, new()
@@ -100,6 +102,21 @@ namespace Shader
                     Write(writer);
                 }
             }
+        }
+
+        public void Read(byte[] bytes)
+        {
+            var stream = new MemoryStream(bytes);
+            var br = new BinaryReader(stream);
+            Read(br);
+        }
+
+        public byte[] Write()
+        {
+            var stream = new MemoryStream();
+            var bw = new BinaryWriter(stream);
+            Write(bw);
+            return stream.ToArray();
         }
     }
 }
