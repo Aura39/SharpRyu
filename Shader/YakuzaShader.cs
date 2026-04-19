@@ -87,6 +87,17 @@ namespace Shader
             }
         }
 
+        // Checksum used is a simple sum of every byte
+        public ushort CalculateChecksum16(byte[] AsciiBytes)
+        {
+            ushort sum = 0;
+            foreach (byte b in AsciiBytes)
+            {
+                sum += b;
+            }
+            return sum;
+        }
+
         int CalcPadding(int BlockSize, int Length)
         {
             return (BlockSize - (Length % BlockSize)) % BlockSize;
@@ -101,7 +112,7 @@ namespace Shader
 
             var fxoSizeOffset = bw.BaseStream.Position;
             bw.Write(0); // Placeholder for FXO Size
-            bw.Write((ushort)0); // Placeholder for name CRC-16
+            bw.Write(CalculateChecksum16(Encoding.ASCII.GetBytes(Name))); // Placeholder for name CRC-16
 
             char[] name = new char[30];
             Array.Fill(name, '\0');
