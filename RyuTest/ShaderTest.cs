@@ -3,47 +3,50 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace RyuTest
 {
     internal class ShaderTest : ITest
     {
-        public void Run()
+        public int CalculateDifference(byte[] original, byte[] actual)
         {
-            var fxo = AutoYakuzaShader.Read("gsfx.fxo");    // Returns YakuzaShader
-            //var vso = AutoYakuzaShader.Read("gsvs.vso");    // Returns Block<VertexData>
-            //var pso = AutoYakuzaShader.Read("gsps.pso");    // Returns Block<PixelData>
-            //var cso = AutoYakuzaShader.Read("gscs.cso");    // Returns Block<ComputeData>
-
-            fxo.Write("gsfx_new.fxo");
-            //vso.Write("gsvs_new.vso");
-            //pso.Write("gsps_new.pso");
-            //cso.Write("gscs_new.cso");
-
-            var og = File.ReadAllBytes("gsfx.fxo");
-            var regen = File.ReadAllBytes("gsfx_new.fxo");
-
-            int length = Math.Min(og.Length, regen.Length);
-            int difference = Math.Max(og.Length, regen.Length) - length;
-
-            List<int> differences = new List<int>();
+            int length = Math.Min(original.Length, actual.Length);
+            int difference = Math.Max(original.Length, actual.Length) - length;
 
             for (int i = 0; i < length; i++)
             {
-                if (og[i] != regen[i])
+                if (original[i] != actual[i])
                 {
                     difference++;
-                    differences.Add(i);
                 }
             }
+            return difference;
+        }
 
-            Console.WriteLine($"GSFX Difference: {difference} bytes.");
-            
-            foreach (var diff in differences)
+        public void Run()
+        {
+            (string, int) biggestMismatch = ("NULL", 0);
+
+            foreach (var file in Directory.EnumerateFiles("ogref_d3d11"))
             {
-                Console.Write($"0x{diff:X4} ");
+                var original = File.ReadAllBytes(file);
+                var sh = AutoYakuzaShader.Read(file);
+                var regenerated = sh.Write();
+
+                var diff = CalculateDifference(original, regenerated);
+
+                if (biggestMismatch.Item2 < diff)
+                {
+                    biggestMismatch.Item1 = file;
+                    biggestMismatch.Item2 = diff;
+                }
+
+                Console.WriteLine($"{Path.GetFileName(file).PadRight(50)} : {diff,4} bytes. (out of {original.Length,7} bytes)");
             }
+
+            Console.WriteLine($"\nBiggest Offender is: {biggestMismatch.Item1} with {biggestMismatch.Item2} bytes mismatching.");
         }
     }
 }

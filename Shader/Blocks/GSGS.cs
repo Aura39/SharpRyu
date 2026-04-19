@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Shader.Blocks
 {
-    public class PixelData : BlockData
+    public class GSGS : BlockData
     {
-        public PixelData()
+        public GSGS()
         {
-
+            
         }
 
         public override string GetMagic()
         {
-            return "GSPS";
+            return "GSGS";
         }
 
         public override void Read(BinaryReader br)

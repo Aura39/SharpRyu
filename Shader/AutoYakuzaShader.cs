@@ -9,6 +9,14 @@ namespace Shader
 {
     public class AutoYakuzaShader
     {
+        public static IBlock? Read(byte[] Data)
+        {
+            var stream = new MemoryStream(Data);
+            using (var reader = new BinaryReader(stream, Encoding.ASCII, false))
+            {
+                return Read(reader);
+            }
+        }
         public static IBlock? Read(string Path)
         {
             using (var stream = File.Open(Path, FileMode.Open))
@@ -32,17 +40,21 @@ namespace Shader
                     gsfx.Read(br);
                     return gsfx;
                 case "GSVS":
-                    var gsvs = new Block<VertexData>();
+                    var gsvs = new Block<GSVS>();
                     gsvs.Read(br);
                     return gsvs;
                 case "GSPS":
-                    var gsps = new Block<PixelData>();
+                    var gsps = new Block<GSPS>();
                     gsps.Read(br);
                     return gsps;
                 case "GSCS":
-                    var gscs = new Block<ComputeData>();
+                    var gscs = new Block<GSCS>();
                     gscs.Read(br);
                     return gscs;
+                case "GSGS":
+                    var gsgs = new Block<GSGS>();
+                    gsgs.Read(br);
+                    return gsgs;
             }
             return null;
         }

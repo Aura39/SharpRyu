@@ -57,7 +57,7 @@ namespace Shader
                     // Vertex Shader
                     case "GSVS":
                         {
-                            var block = new Block<VertexData>();
+                            var block = new Block<GSVS>();
                             block.Read(br);
                             Blocks[i] = block;
                             break;
@@ -66,7 +66,7 @@ namespace Shader
                     // Pixel Shader
                     case "GSPS":
                         {
-                            var block = new Block<PixelData>();
+                            var block = new Block<GSPS>();
                             block.Read(br);
                             Blocks[i] = block;
                             break;
@@ -75,7 +75,16 @@ namespace Shader
                     // Compute Shader (Is never encountered in GSFX, only in a separate file, still keeping for support)
                     case "GSCS":
                         {
-                            var block = new Block<ComputeData>();
+                            var block = new Block<GSCS>();
+                            block.Read(br);
+                            Blocks[i] = block;
+                            break;
+                        }
+
+                    // Geometry Shader
+                    case "GSGS":
+                        {
+                            var block = new Block<GSGS>();
                             block.Read(br);
                             Blocks[i] = block;
                             break;

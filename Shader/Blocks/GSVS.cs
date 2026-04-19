@@ -7,11 +7,11 @@ using System.Xml.Linq;
 
 namespace Shader.Blocks
 {
-    public class VertexData : BlockData
+    public class GSVS : BlockData
     {
         string InputSemantics;
 
-        public VertexData()
+        public GSVS()
         {
 
         }
