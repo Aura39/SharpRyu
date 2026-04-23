@@ -9,6 +9,7 @@ namespace Shader
 {
     public interface IBlock
     {
+        public string GetMagic();
         public void Read(BinaryReader br);
         public void Write(BinaryWriter bw);
         public void Read(string Path);
@@ -117,6 +118,11 @@ namespace Shader
             var bw = new BinaryWriter(stream);
             Write(bw);
             return stream.ToArray();
+        }
+
+        public string GetMagic()
+        {
+            return Data.GetMagic();
         }
     }
 }

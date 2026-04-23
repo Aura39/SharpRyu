@@ -9,7 +9,7 @@ namespace Shader.Blocks
 {
     public class GSVS : BlockData
     {
-        string InputSemantics;
+        public string InputSemantics;
 
         public GSVS()
         {

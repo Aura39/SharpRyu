@@ -1,4 +1,5 @@
 ﻿using Shader;
+using Shader.Blocks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,9 +28,30 @@ namespace RyuTest
 
         public void Run()
         {
+            foreach (var file in Directory.EnumerateFiles("cima_d3d11"))
+            {
+                var original = File.ReadAllBytes(file);
+                var sh = AutoYakuzaShader.Read(file);
+
+                if (sh is YakuzaShader) {
+                    YakuzaShader gsfx = (YakuzaShader)sh;
+                    foreach (var block in gsfx.Blocks)
+                    {
+                        if (block is Block<GSVS>)
+                        {
+                            var gsvs = (Block<GSVS>)block;
+                            Console.WriteLine($"{Path.GetFileName(file).PadRight(50)} : {gsvs.Data.InputSemantics}");
+                        }
+                    }
+                }
+            }
+        }
+
+        public void RunMismatch()
+        {
             (string, int) biggestMismatch = ("NULL", 0);
 
-            foreach (var file in Directory.EnumerateFiles("ogref_d3d11"))
+            foreach (var file in Directory.EnumerateFiles("cima_d3d11"))
             {
                 var original = File.ReadAllBytes(file);
                 var sh = AutoYakuzaShader.Read(file);

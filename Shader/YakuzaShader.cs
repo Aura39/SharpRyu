@@ -10,11 +10,11 @@ namespace Shader
 {
     public class YakuzaShader : IBlock
     {
-        string Name;
-        ushort VersionMajor;
-        ushort VersionMinor;
+        public string Name;
+        public ushort VersionMajor;
+        public ushort VersionMinor;
 
-        IBlock?[] Blocks;
+        public IBlock?[] Blocks;
 
         public YakuzaShader()
         {
@@ -211,6 +211,11 @@ namespace Shader
             var bw = new BinaryWriter(stream);
             Write(bw);
             return stream.ToArray();
+        }
+
+        public string GetMagic()
+        {
+            return "GSFX";
         }
     }
 }

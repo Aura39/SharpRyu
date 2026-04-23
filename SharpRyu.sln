@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shader", "Shader\Shader.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RyuTest", "RyuTest\RyuTest.csproj", "{94ABD507-1C1E-4F50-A587-D0B112DDEA97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YkGsEffect", "YkGsEffect\YkGsEffect.csproj", "{7E94ABF1-8D0D-4EA6-AB67-CCBC51A527C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{94ABD507-1C1E-4F50-A587-D0B112DDEA97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94ABD507-1C1E-4F50-A587-D0B112DDEA97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94ABD507-1C1E-4F50-A587-D0B112DDEA97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E94ABF1-8D0D-4EA6-AB67-CCBC51A527C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E94ABF1-8D0D-4EA6-AB67-CCBC51A527C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E94ABF1-8D0D-4EA6-AB67-CCBC51A527C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E94ABF1-8D0D-4EA6-AB67-CCBC51A527C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
